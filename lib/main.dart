@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -120,12 +119,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: width * 0.55,
                             child: TextFormField(
                               controller: fieldText,
-
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 CardNumberFormatter(),
                               ],
-
                               decoration: const InputDecoration(
                                 hintText: "(123) 123-1234",
                                 filled: true,
@@ -152,9 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  // const SizedBox(
-                  //   height: (heightScreen * 0.30),
-                  // ),
                   Container(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(

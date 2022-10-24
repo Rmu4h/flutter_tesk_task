@@ -1,7 +1,8 @@
-import 'package:country_calling_code_picker/picker.dart';
+// import 'package:country_calling_code_picker/picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'country_calling_code_picker/picker.dart';
 
 void main() {
   runApp(const MyApp());

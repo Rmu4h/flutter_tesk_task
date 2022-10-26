@@ -55,8 +55,8 @@ class CountryPickerWidget extends StatefulWidget {
 class _CountryPickerWidgetState extends State<CountryPickerWidget> {
   List<Country> _list = [];
   List<Country> _filteredList = [];
-  TextEditingController _controller = new TextEditingController();
-  ScrollController _scrollController = new ScrollController();
+  final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
   Country? _currentCountry;
 
@@ -112,7 +112,7 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
             (element) => element.callingCode == country.callingCode);
         _list.insert(0, country);
       }
-    } catch (e) {} finally {
+    } finally {
       setState(() {
         _filteredList = _list.map((e) => e).toList();
         _isLoading = false;
@@ -124,7 +124,7 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         Container(
@@ -137,7 +137,7 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
                   suffixIcon: Visibility(
                     visible: _controller.text.isNotEmpty,
                     child: InkWell(
-                      child: Icon(Icons.clear),
+                      child: const Icon(Icons.clear),
                       onTap: () => setState(() {
                         _controller.clear();
                         _filteredList.clear();
@@ -146,42 +146,44 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF8EAAFB), width: 0.0),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF8EAAFB), width: 0.0),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF8EAAFB), width: 0.0),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF8EAAFB), width: 0.0),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  contentPadding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                  contentPadding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 8, bottom: 8),
                   hintText: widget.searchHintText,
                   filled: true,
-                  fillColor: Color(0xFFB7C8FD),
+                  fillColor: const Color(0xFFB7C8FD),
                 ),
             textInputAction: TextInputAction.done,
             controller: _controller,
             onChanged: _onSearch,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 24,
         ),
         Expanded(
           child: _isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : ListView.separated(
                   controller: _scrollController,
                   itemCount: _filteredList.length,
                   separatorBuilder: (_, index) =>
-                      widget.showSeparator ? Divider() : Container(),
+                      widget.showSeparator ? const Divider() : Container(),
                   itemBuilder: (_, index) {
                     return InkWell(
                       onTap: () {
                         widget.onSelected?.call(_filteredList[index]);
                       },
                       child: Container(
-                        padding: EdgeInsets.only(
-                            bottom: 24),
+                        padding: const EdgeInsets.only(bottom: 24),
                         child: Row(
                           children: <Widget>[
                             Image.asset(
@@ -189,18 +191,18 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
                               package: countryCodePackageName,
                               width: widget.flagIconSize,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 16,
                             ),
                             Padding(
-                                padding: EdgeInsets.only(right: 12),
-                                child: Text(
-                                  '${_filteredList[index].callingCode}',
-                                  style: widget.itemTextStyle,
-                                ),
+                              padding: const EdgeInsets.only(right: 12),
+                              child: Text(
+                                _filteredList[index].callingCode,
+                                style: widget.itemTextStyle,
+                              ),
                             ),
                             Text(
-                              '${_filteredList[index].name}',
+                              _filteredList[index].name,
                               style: widget.itemTextStyle,
                             ),
                           ],

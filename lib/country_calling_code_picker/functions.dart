@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'sim_country_code/flutter_sim_country_code.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +12,7 @@ Future<List<Country>> getCountries(BuildContext context) async {
   String rawData = await DefaultAssetBundle.of(context).loadString(
       'packages/country_calling_code_picker/raw/country_codes.json');
   final parsed = json.decode(rawData.toString()).cast<Map<String, dynamic>>();
-  return parsed.map<Country>((json) => new Country.fromJson(json)).toList();
+  return parsed.map<Country>((json) => Country.fromJson(json)).toList();
 }
 
 ///This function returns an user's current country. User's sim country code is matched with the ones in the list.
@@ -44,14 +43,14 @@ Future<Country?> getCountryByCountryCode(
 Future<Country?> showCountryPickerSheet(BuildContext context,
     {Widget? title,
     Widget? cancelWidget,
-    double cornerRadius: 35,
-    bool focusSearchBox: false,
-    double heightFactor: 0.9}) {
+    double cornerRadius = 35,
+    bool focusSearchBox = false,
+    double heightFactor = 0.9}) {
   assert(heightFactor <= 0.9 && heightFactor >= 0.4,
       'heightFactor must be between 0.4 and 0.9');
   return showModalBottomSheet<Country?>(
       context: context,
-      backgroundColor: Color(0xFF8EAAFB),
+      backgroundColor: const Color(0xFF8EAAFB),
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -60,10 +59,10 @@ Future<Country?> showCountryPickerSheet(BuildContext context,
       builder: (_) {
         return Container(
           height: MediaQuery.of(context).size.height * heightFactor,
-          padding: EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -80,19 +79,16 @@ Future<Country?> showCountryPickerSheet(BuildContext context,
                   ),
                   cancelWidget ??
                       SizedBox(
-                        height:20,
-                        width:20,
+                        height: 20,
+                        width: 20,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFB7C8FD),
+                            backgroundColor: const Color(0xFFB7C8FD),
                             padding: EdgeInsets.zero,
                           ),
                           onPressed: () => Navigator.pop(context),
-                          child: const Icon(
-                              Icons.close,
-                              color: Colors.black,
-                              size: 10.0
-                          ),
+                          child: const Icon(Icons.close,
+                              color: Colors.black, size: 10.0),
                         ),
                       )
                 ],
@@ -105,7 +101,5 @@ Future<Country?> showCountryPickerSheet(BuildContext context,
             ],
           ),
         );
-      }
-      );
+      });
 }
-
